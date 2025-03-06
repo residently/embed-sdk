@@ -1,0 +1,39 @@
+image: residently/node:18.17.1
+
+stages:
+  - test
+  - publish
+
+include:
+  - template: Code-Quality.gitlab-ci.yml
+
+code_quality:
+  artifacts:
+    paths: [gl-code-quality-report.json]
+
+test:
+  stage: test
+  artifacts:
+    when: always
+    paths:
+      - junit.xml
+    reports:
+      junit: junit.xml
+  before_script:
+    - npm install
+  script:
+    - npm run test:types
+    - npm run test:ci
+
+publish:
+  stage: publish
+  before_script:
+    - npm install
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/138/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+  script:
+    - npm run build
+    - npm publish
+  needs:
+    - test
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'

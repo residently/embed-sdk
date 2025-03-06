@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDeclarationOnly": false
+  },
+  "extends": "./tsconfig.json",
+  "include": [
+    ".eslintrc.cjs",
+    "jest.config.js",
+    "src/**/*",
+    "tests/**/*"
+  ],
+}
