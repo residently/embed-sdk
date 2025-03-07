@@ -1,6 +1,4 @@
-import { EmbedViewOptions, Events, Unsubscribe } from './types'
-
-// eslint-disable-next-line import/prefer-default-export
+import { Events, Unsubscribe, EmbedViewOptions } from './types'
 export class Residently {
   private iframe?: HTMLIFrameElement
 
@@ -55,7 +53,6 @@ export class Residently {
     callbacks.forEach(callback => callback(arg))
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private buildIframeUrl(
     view: EmbedViewOptions['view'],
     collectionToken?: string,
@@ -79,7 +76,6 @@ export class Residently {
   private handleMessage(event: MessageEvent): void {
     // Validate event origin (optional, replace with Residently's actual domain)
     if (event.origin !== 'https://api.residently.com') {
-      // eslint-disable-next-line no-console
       console.warn('Untrusted message origin:', event.origin)
       return
     }

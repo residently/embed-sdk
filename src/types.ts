@@ -1,6 +1,4 @@
-export interface Unsubscribe {
-  (): void
-}
+export type Unsubscribe = () => void
 
 export interface Events {
   listingClicked: (listingId: string) => void
